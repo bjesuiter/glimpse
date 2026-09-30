@@ -42,7 +42,7 @@ Every page gets `window.glimpse` injected at document start:
 ### Build
 
 ```bash
-swiftc -O src/glimpse.swift -o src/glimpse    # or: npm run build
+swiftc -O src/glimpse.swift -o src/glimpse    # or: bun run build
 ```
 
 Every Mac has `swiftc` — no Xcode project, no Package.swift, no SPM. Single-file compilation.
@@ -50,7 +50,7 @@ Every Mac has `swiftc` — no Xcode project, no Package.swift, no SPM. Single-fi
 ### Test
 
 ```bash
-npm test           # or: node test/test.mjs
+bun run test       # or: node test/test.mjs
 ```
 
 End-to-end integration test: open → ready → eval (click button) → message → close → closed. Requires a window server (can't run headless).
@@ -61,7 +61,7 @@ End-to-end integration test: open → ready → eval (click button) → message 
 - **No external dependencies.** Node wrapper uses only `node:` built-ins. Swift uses only system frameworks (Cocoa, WebKit).
 - **ESM only.** The Node wrapper is a pure ES module. No CJS, no bundler.
 - **Protocol-first.** New features should be expressible as JSON Lines commands/events. The Node wrapper is just sugar.
-- **Compile on install.** `npm run build` / `postinstall` compiles the binary. Users can fork and modify the Swift source.
+- **Bun for repository work.** Use `bun install` and `bun run` for package scripts. The `postinstall` hook compiles the binary. Published packages still support Node.js consumers.
 
 ### Swift Patterns
 
@@ -113,8 +113,8 @@ src/glimpse.swift   — The native binary (THE core)
 src/glimpse.mjs     — Node.js ESM wrapper
 bin/glimpse.mjs     — CLI entry point (npx glimpseui)
 test/test.mjs       — Integration test
-scripts/publish.sh  — npm publish with preflight checks
-package.json        — NPM config, build/postinstall scripts, pi package manifest
+scripts/publish.sh  — Bun publish with preflight checks
+package.json        — Package metadata, build/postinstall scripts, pi package manifest
 README.md           — User-facing docs (API, protocol, CLI)
 skills/glimpse/SKILL.md — Agent skill (patterns, examples, creative ideas)
 CHANGELOG.md        — Release notes

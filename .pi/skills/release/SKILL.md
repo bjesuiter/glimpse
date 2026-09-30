@@ -1,6 +1,6 @@
 ---
 name: release
-description: Create a release, publish to npm, and create a GitHub release. Use when asked to "release", "cut a release", "publish", "bump version", "create release", "npm publish".
+description: Create a release, publish to npm with Bun, and create a GitHub release. Use when asked to "release", "cut a release", "publish", "bump version", "create release", "bun publish", or "npm publish".
 ---
 
 # Release
@@ -99,7 +99,7 @@ Spawn a cmux surface to verify npm auth. The user may need to complete OTP/brows
 ```bash
 SURFACE=$(cmux new-surface --type terminal | awk '{print $2}')
 sleep 0.5
-cmux send --surface $SURFACE 'npm whoami\n'
+cmux send --surface $SURFACE 'bun pm whoami\n'
 ```
 
 Poll for output. If logged in, you'll see the username. If not:
@@ -108,7 +108,7 @@ Poll for output. If logged in, you'll see the username. If not:
 cmux send --surface $SURFACE 'npm login\n'
 ```
 
-Tell the user to complete authentication in the cmux tab, then poll until `npm whoami` succeeds:
+Tell the user to complete authentication in the cmux tab, then poll until `bun pm whoami` succeeds:
 
 ```bash
 # Poll loop

@@ -21,12 +21,20 @@ npm install glimpseui
 
 `npm install` runs a `postinstall` hook that compiles the native binary for your platform. If the required toolchain isn't found, the build is skipped with a warning — you can compile manually later.
 
+For development in this repository, use Bun 1.4.2:
+
+```bash
+bun install
+bun run build
+bun run test
+```
+
 **Manual build:**
 ```bash
-npm run build            # auto-detect platform
-npm run build:macos      # swiftc
-npm run build:linux      # cargo build --release
-npm run build:windows    # dotnet publish
+bun run build            # auto-detect platform
+bun run build:macos      # swiftc
+bun run build:linux      # cargo build --release
+bun run build:windows    # dotnet publish
 ```
 
 ### Pi Agent Package
@@ -527,7 +535,7 @@ for line in proc.stdout:
 
 ```bash
 xcode-select --install      # one-time: install Xcode Command Line Tools
-npm run build:macos          # or: swiftc -O src/glimpse.swift -o src/glimpse
+bun run build:macos          # or: swiftc -O src/glimpse.swift -o src/glimpse
 ```
 
 ### Linux
@@ -541,7 +549,7 @@ npm run build:macos          # or: swiftc -O src/glimpse.swift -o src/glimpse
 # Arch:    pacman -S gtk4 webkitgtk-6.0 gtk4-layer-shell
 
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh  # if no Rust toolchain
-npm run build:linux
+bun run build:linux
 ```
 
 **Option B: Chromium CDP backend (zero-compile)**
@@ -560,7 +568,7 @@ The Chromium backend supports features the native Linux backend doesn't: follow-
 Requires [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0) and Microsoft Edge WebView2 Runtime (pre-installed on Windows 10/11).
 
 ```bash
-npm run build:windows
+bun run build:windows
 ```
 
 ## Platform Notes

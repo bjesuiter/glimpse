@@ -32,12 +32,12 @@ if [[ "$BRANCH" != "main" ]]; then
 fi
 echo "  ✓ On main branch"
 
-# 3. npm logged in
-if ! npm whoami &>/dev/null; then
+# 3. Registry login
+if ! bun pm whoami &>/dev/null; then
   echo "✗ Not logged in to npm. Run 'npm login' first."
   exit 1
 fi
-NPM_USER="$(npm whoami)"
+NPM_USER="$(bun pm whoami)"
 echo "  ✓ Logged in as $NPM_USER"
 
 # 4. Swift compiler available
@@ -50,22 +50,22 @@ echo "  ✓ swiftc available"
 # 5. Build the binary (verify it compiles)
 echo ""
 echo "🔨 Building..."
-npm run build
+bun run build
 echo "  ✓ Binary compiled"
 
 # 6. Run tests
 echo ""
 echo "🧪 Running tests..."
-npm test
+bun run test
 echo "  ✓ Tests passed"
 
 # 7. Show what will be published
 echo ""
 echo "📦 Package contents:"
-npm pack --dry-run 2>&1 | grep -E "^npm notice [0-9]|Tarball|Total"
+bun pm pack --dry-run
 
 # 8. Read version
-VERSION="$(node -e "console.log(require('./package.json').version)")"
+VERSION="$(bun -p "require('./package.json').version")"
 echo ""
 echo "🚀 Publishing glimpseui@$VERSION $DRY_RUN"
 echo ""
@@ -79,7 +79,7 @@ if [[ -z "$DRY_RUN" ]]; then
   fi
 fi
 
-npm publish $DRY_RUN
+bun publish $DRY_RUN
 
 if [[ -z "$DRY_RUN" ]]; then
   echo ""
